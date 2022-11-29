@@ -32,10 +32,6 @@ jobs:
       steps:
         # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
         - uses: actions/checkout@v3
-        - run: 'echo "$SSH_KEY" > sshkey'
-          shell: bash
-          env:
-            SSH_KEY: ${{secrets.SSH_PRIVATE_KEY}}
         - name: Set up Python 3.9
           uses: actions/setup-python@v2
           with:
@@ -46,5 +42,10 @@ jobs:
             if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
             if [ -f test-requirements.txt ]; then pip install -r test-requirements.txt; fi
         - name: run playbook
+          shell: bash
+          env:
+            SSH_KEY: ${{secrets.SSH_PRIVATE_KEY}}
           run: |
+            echo "$SSH_KEY" > sshkey'
+            chmod 600 sshkey
             ansible-playbook setup.yml -i inventory.yml
