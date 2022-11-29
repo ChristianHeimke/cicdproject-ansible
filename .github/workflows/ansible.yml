@@ -46,6 +46,6 @@ jobs:
           env:
             SSH_KEY: ${{secrets.SSH_PRIVATE_KEY}}
           run: |
-            echo "$SSH_KEY" > sshkey'
+            echo "$SSH_KEY" > sshkey
             chmod 600 sshkey
             ansible-playbook setup.yml -i inventory.yml
