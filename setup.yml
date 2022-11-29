@@ -35,7 +35,7 @@
       authorized_key:
         user: deploy
         state: present
-        key: "{{ lookup('file', '../sshkey.pub') }}"
+        key: "{{ lookup('file', './files/sshkey.pub') }}"
 
 - name: install java
   become: true
